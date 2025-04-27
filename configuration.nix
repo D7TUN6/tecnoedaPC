@@ -70,7 +70,7 @@
     users = {
       server = {
         isNormalUser = true;
-	      initialPassword = "fuck_you!"; # Super secret information.
+	initialPassword = "fuck_you!"; # Super secret information.
         extraGroups = [ "wheel" "storage" "input" "plugdev" ];
         shell = pkgs.fish;
       };
