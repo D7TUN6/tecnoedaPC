@@ -31,6 +31,7 @@
     wget
     rsync
     btop
+    htop
     fastfetch
     # Production.
     git
@@ -81,7 +82,12 @@
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
     };
+    optimise = {
+      automatic = true;
+      dates = [ "00:59" ];
+    }:
   };
 
   # Nixpkgs configuration.
@@ -118,6 +124,51 @@
         WebService = {
           AllowUnencrypted = true;
         };
+      };
+    };
+  };
+
+  # Autoupgrade.
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/etc/nixos#Server1";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+      "-L"
+    ];
+    dates = "23:59";
+  };
+
+  # Zram configuration.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+    algorithm = "zstd";
+  };
+
+  # Systemd configuration.
+  systemd = {
+    timers = {
+      "gen-cleaner" = {
+        wantedBy = [ "timers.target" ];
+	  timerConfig = {
+            OnCalendar = "Mon..Sun *-*-* 01:59:*";
+	    Persistent = true;
+	  };
+      };
+    };
+    services = {
+      "gen-cleaner" = {
+        script = ''
+	  set -eu
+	  /run/current-system/sw/bin/nix-collect-garbage -d
+	'';
+	serviceConfig = {
+        Type = "oneshot";
+	User = "root";
+	};
       };
     };
   };
