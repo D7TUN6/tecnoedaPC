@@ -87,7 +87,7 @@
     optimise = {
       automatic = true;
       dates = [ "00:59" ];
-    }:
+    };
   };
 
   # Nixpkgs configuration.
