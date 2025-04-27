@@ -5,6 +5,7 @@
     [
       # System.
       ./hardware-configuration.nix
+      # Production.
       ./containers.nix
     ];
 
