@@ -151,7 +151,7 @@
     users = {
       server = {
         isNormalUser = true;
-        initialPassword = "1590";
+        initialPassword = "blablabla";
         extraGroups = [
         "wheel"
         "storage"
