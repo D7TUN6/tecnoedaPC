@@ -1,5 +1,5 @@
 # Execute all commands from root user
-sudo su
+#sudo su
 
 # List disks
 lsblk
@@ -23,12 +23,12 @@ else
 fi
 
 # Last warning
-echo "WARNING: ALL DATA ON DISK $disk WILL BE DESTROYED!"
-read -p "Are you sure? (y/n): " confirm
-if [[ "{$confirm,,}" != "y" ]]; then
-  echo "Installation cancelled."
-  exit 1
-fi
+#echo "WARNING: ALL DATA ON DISK $disk WILL BE DESTROYED!"
+#read -p "Are you sure? (y/n): " confirm
+#if [[ "{$confirm,,}" != "y" ]]; then
+#  echo "Installation cancelled."
+#  exit 1
+#fi
 
 # Partioning disk
 parted "$disk" --script mklabel gpt
@@ -43,9 +43,9 @@ btrfs subvolume create /mnt/@root
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@boot
 umount -l /mnt
-mount -o subvol=@root "$part2" /mnt
-mount -o subvol=@home "$part2" /mnt/home
-mount -o subvol=@boot "$part2" /mnt/boot
+mount --mkdir -o subvol=@root "$part2" /mnt
+mount --mkdir -o subvol=@home "$part2" /mnt/home
+mount --mkdir -o subvol=@boot "$part2" /mnt/boot
 
 # Generate config (hardware-configuration.nix only)
 nixos-generate-config --root /mnt
