@@ -2,7 +2,7 @@
 # Настройка интернета
 {
   networking = {
-    hostName = "icepeak";
+    hostName = "tecnoedaPC";
     nameservers = [ # Несколько DNS серверов для надёжности
         "1.1.1.1" # Cloudflare
         "1.0.0.1"
