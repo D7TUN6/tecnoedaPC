@@ -1,35 +1,22 @@
 { config, lib, pkgs, inputs, ... }:
-
+# Настройка интернета
 {
   networking = {
-
-    hostName = "Server1";
-
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-      "8.8.8.8"
-      "8.8.4.4"
+    hostName = "icepeak";
+    nameservers = [ # Несколько DNS серверов для надёжности
+        "1.1.1.1" # Cloudflare
+        "1.0.0.1"
+        "8.8.8.8" # Google
+        "8.8.4.4"
     ];
-
-    networkmanager = {
+    networkmanager = { # Networkmanager - сердце сети
       enable = true;
     };
-
+    wireless = {
+      enable = true; # Включаем поддержку WiFi
+    };
     firewall = {
-      enable = true;
-      allowedTCPPorts = [ 2001 80 443 25565 25575 44682 55793 ];
-      allowedUDPPorts = [ 2001 80 443 25565 25575 44682 55793 ];
-      rejectPackets = true;
-    };
-
-    nat = {
-      enable = true;
-      # Use "ve-*" when using nftables instead of iptables
-      internalInterfaces = ["ve-+"];
-      externalInterface = "enp4s0";
-      enableIPv6 = true;
+      enable = false;
     };
   };
-
 }

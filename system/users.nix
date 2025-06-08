@@ -1,21 +1,20 @@
 { config, lib, pkgs, inputs, ... }:
-
+# Настройка пользователей
 {
   users = {
-
     users = {
-
-      server = {
+      tecnoeda = {
         isNormalUser = true;
-        extraGroups = [
+        extraGroups = [ # Группы пользователя
         "wheel"
         "storage"
         "input"
         "plugdev"
         "networkmanager"
         ];
-        shell = pkgs.fish;
+        shell = pkgs.fish; # Шелл пользователя
       };
     };
   };
+  users.groups.libvirtd.members = ["tecnoeda"]; # Для virt-manager
 }
