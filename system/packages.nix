@@ -116,7 +116,7 @@
       size = 16;
     };
 
-    gtk = { # Настройка GTK (интерфейс)
+    home.gtk = { # Настройка GTK (интерфейс)
       enable = true;
       theme = { # Тема, мы используем Catpuccin Mocha
         package = pkgs.flat-remix-gtk;
